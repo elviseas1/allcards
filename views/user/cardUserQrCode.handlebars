@@ -1,0 +1,120 @@
+ <div id="bodyOkQ">
+
+        <div id="celularQr" style="background-color:{{cardUser.cor}}">
+
+            <div id="bodydados" >
+
+             
+              {{#if cardUser.image}}
+              <img id="rostoQr" src="{{cardUser.image}}" alt="Foto de perfil">
+              {{else}}
+               <img id="rostoQr" src="/img/logo.png" alt="Foto de perfil">
+              {{/if}}
+              <span id="nome-span">{{cardUser.name}}</span>
+              <span id="profissao-span">{{cardUser.profissao}}</span>
+              
+              <div id="contato1">
+                <a id="open-modal">
+                    <img src="/img/qrcode.png" alt="Descrição da imagem">
+                </a>
+
+                <a href="tel:123456789;uicontrols=2">
+                  <button  id="botaoA">Salva Contato</button>
+                </a>
+
+                <a href="javascript:void(0)" onclick="share()">
+                    <img src="/img/share.png" alt="Descrição da imagem">
+                </a>
+              </div>
+
+                  <div id="modal" class="modal" hidden>
+                    <div  class="modal-content">
+                      <span class="close">&times;</span>
+                      <img src="{{cardUser.qrcodeCode}}" alt="Imagem ampliada">
+                    </div>
+                  </div>
+
+              
+              <div id="contato2">
+                <a href="tel:+55{{cardUser.phone}}">
+                    <img src="/img/call.png" alt="Descrição da imagem">
+                </a>
+                <a href="mailto:{{cardUser.email}}">
+                    <img src="/img/email.png" alt="Descrição da imagem">
+                </a>
+                <a href="https://wa.me/55{{cardUser.whatsapp}}?text=Olá!">
+                    <img style="width: 34px; height: 34px; background-color: #fff" src="/img/whatsapp.png" alt="Descrição da imagem">
+                </a>
+                {{!-- <a href="https://www.goole.com">
+                    <img src="img/map.png" alt="Descrição da imagem">
+                </a> --}}
+              </div>
+              <div id="links">
+
+                <p>Links:</p>
+
+                  {{#if cardUser.site}}
+                    <button onclick="window.open('http://{{cardUser.site}}', '_blank')" id="botaoB">Site</button>
+                  {{/if}}
+                  {{#if cardUser.youtube}}
+                    <button onclick="window.open('http://{{cardUser.youtube}}', '_blank')" id="botaoC">YouTube</button>
+                  {{/if}}
+                  {{#if cardUser.instagram}}
+                    <button onclick="window.open('https://www.instagram.com/{{cardUser.instagram}}/', '_blank')" id="botaoD">Instagram</button>
+                  {{/if}}
+                  {{#if cardUser.linkedin}}
+                    <button onclick="window.open('https://www.linkedin.com/in/{{cardUser.linkedin}}/', '_blank')" id="botaoE">Linkdin</button>
+                  {{/if}}
+
+              </div>
+
+       </div> 
+
+       <footer class="footerQrCode">
+          <div style="display: flex; flex-direction: column; align-items: center;">
+              <a href="/" id="logoQrcode">
+                  <img src="/img/logo.png" alt="Card">
+              </a>
+              
+              <a style="color: #54C3D4; font-family: Helvetica; font-size: 12px;" href="/loginQrCode/{{cardUser.codeCard}}">Entrar</a>
+          </div>
+          
+       </footer>
+
+<script>
+
+  // Função para compartilhar conteúdo
+function share(){
+	if (navigator.share !== undefined) {
+		navigator.share({
+			title: 'O título da sua página',
+			text: 'Um texto de resumo',
+			url: 'https://elviseas.com.br',
+		})
+		.then(() => console.log('Successful share'))
+		.catch((error) => console.log('Error sharing', error));
+	}
+}
+
+  var modal = document.getElementById("modal");
+  var btn = document.getElementById("open-modal");
+  var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+     
+
+</div>

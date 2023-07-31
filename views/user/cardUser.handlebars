@@ -1,0 +1,203 @@
+ <div class="home-header">
+
+        <div id="bodyOk">
+
+        <div id="celular" style="background-color:{{cardUser.cor}}">
+
+            <div id="bodydados" >
+
+              <img id="rosto" src="{{cardUser.image}}" alt="" >
+              
+              <span id="nome-span">{{cardUser.name}}</span>
+              <span id="profissao-span">{{cardUser.profissao}}</span>
+              
+              <div id="contato1">
+                <a href="https://www.goole.com">
+                    <img src="/img/qrcode.png" alt="Descrição da imagem">
+                </a>
+
+                <button id="botaoA">Salva Contato</button>
+
+                <a href="https://www.goole.com">
+                    <img src="/img/share.png" alt="Descrição da imagem">
+                </a>
+              </div>
+              
+              <div id="contato2">
+                <a href="https://www.goole.com">
+                    <img src="/img/call.png" alt="Descrição da imagem">
+                </a>
+                <a href="https://www.goole.com">
+                    <img src="/img/email.png" alt="Descrição da imagem">
+                </a>
+                <a href="https://www.goole.com">
+                    <img style="width: 34px; height: 34px; background-color: #fff" src="/img/whatsapp.png" alt="Descrição da imagem">
+                </a>
+                {{!-- <a href="https://www.goole.com">
+                    <img src="img/map.png" alt="Descrição da imagem">
+                </a> --}}
+              </div>
+              <div id="links">
+
+                <p>Links</p>
+
+            
+                  <button id="botaoB">Site</button>
+
+                  <button id="botaoC">YouTube</button>
+
+                  <button id="botaoD">Instagram</button>
+
+                  <button id="botaoE">Linkdin</button>
+
+              </div>
+
+            </div>
+
+            
+        </div>
+
+         <form id="formCliente" action="/cardUser" method="post">
+
+            <h2>Dados Pessoais</h2>
+
+            <input type="hidden" name="id" value="{{cardUser.id}}">
+            <input type="hidden" name="userId" value="{{cardUser.UserId}}">
+
+            <label for="hex">Cor:</label>
+            <div class="campo">
+              
+              <input type="color" id="cor" name="cor" value="{{cardUser.cor}}" onchange="mostrarHex()" >
+              <input type="text" id="hex" name="hex" value="{{cardUser.cor}}" onchange="mudarCor()">
+            </div>
+
+            <label for="nome">Foto Perfil:</label>
+            <input type="file" id="imagem-input" name="arquivos" value="{{cardUser.image}}" accept="image/png, image/jpeg"  multiple onchange="verificarDimensoes(this)"/> 
+            <input type="hidden" id="hiddenArquivo" name="hiddenArquivo" value="{{cardUser.image}}">
+
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="{{cardUser.name}}">
+
+             <label for="nome">Profissão:</label>
+            <input type="text" id="profissao" name="profissao" value="{{cardUser.profissao}}">
+            
+            <label for="phone">Telefone:</label>
+            <input type="text" value="{{cardUser.phone}}" class="form-control" id="phone" name="phone" placeholder="(99) 99999-9999" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" title="Número de telefone precisa ser no formato (99) 99999-9999"  />
+
+           <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" value="{{cardUser.email}}">
+            
+            <label for="phone">Whatsapp:</label>
+            <input type="text" class="form-control" value="{{cardUser.whatsapp}}" id="whatsapp" name="whatsapp" placeholder="99999999999" pattern="([0-9]{11})" title="Número de telefone precisa ser no formato 99999999999"  />
+
+        
+            <button style="background-color:#54C3D4" type="submit">Atualizar</button>
+        </form>
+
+        <form id="formCliente" action="/cardUser/D" method="post">
+
+          <input type="hidden" name="id" value="{{cardUser.id}}">
+          <input type="hidden" name="userId" value="{{cardUser.UserId}}">
+
+            <h2>Links Pessoais</h2>
+
+            <label for="site">Site:</label>
+            <input type="text" id="site" name="site" value="{{cardUser.site}}" placeholder="www.exemplo.com.br" title="Utilize o link do site ex.: ww.exemplo.com.b">
+
+            <label for="youtube">Youtube</label>
+            <input type="text" id="youtube" name="youtube" value="{{cardUser.youtube}}" placeholder="www.exemplo.com.br" title="Utilize o link do site ex.: ww.exemplo.com.b">
+            
+            <label for="instagram">Instagram</label>
+            <input type="text" id="instagram" name="instagram" value="{{cardUser.instagram}}" placeholder="Nome de usuario" title="Utilize o nome de usuario do site ex.: Nome de usuario">
+
+            <label for="linkdin">Linkdin</label>
+            <input type="text" id="linkdin" name="linkedin" value="{{cardUser.linkedin}}" placeholder="Nome de usuario" title="Utilize o nome de usuario do site ex.: Nome de usuario">
+
+            <button style="background-color:#54C3D4" type="submit">Atualizar</button>
+        </form>
+
+        </div>
+
+        <script>
+
+          function verificarDimensoes(input) {
+              const arquivo = input.files[0];
+              const leitor = new FileReader();
+
+              leitor.onload = function(evento) {
+                const imagem = new Image();
+                imagem.onload = function() {
+                  const largura = this.width;
+                  const altura = this.height;
+                  if (largura > 800 || altura > 600) {
+                    alert('A imagem selecionada é muito grande. Por favor, selecione uma imagem com no máximo 800x600 pixels.');
+                    input.value = '';
+                  }
+                };
+                imagem.src = evento.target.result;
+              };
+
+              leitor.readAsDataURL(arquivo);
+            }
+
+          const imagemInput = document.getElementById('imagem-input');
+          const imagemRosto = document.getElementById('rosto');
+
+          imagemInput.addEventListener('change', function() {
+            const arquivo = imagemInput.files[0];
+            const leitor = new FileReader();
+
+            leitor.addEventListener('load', function() {
+              imagemRosto.setAttribute('src', leitor.result);
+              document.getElementById("hiddenArquivo").value = leitor.result;
+            });
+
+            leitor.readAsDataURL(arquivo);
+          });
+
+
+
+          function mostrarHex() {
+            var cor = document.getElementById("cor").value;
+            document.getElementById("hex").value = cor;
+            document.getElementById("celular").style.backgroundColor = cor;
+            document.getElementById("botaoA").style.backgroundColor = cor;
+            document.getElementById("botaoB").style.backgroundColor = cor;
+            document.getElementById("botaoC").style.backgroundColor = cor;
+            document.getElementById("botaoD").style.backgroundColor = cor;
+            document.getElementById("botaoE").style.backgroundColor = cor;
+          }
+
+
+          function mudarCor() {
+            var cor = document.getElementById("hex").value;
+            document.getElementById("celular").style.backgroundColor = cor;
+            document.getElementById("cor").value = cor;
+            document.getElementById("botaoA").style.backgroundColor = cor;
+            document.getElementById("botaoB").style.backgroundColor = cor;
+            document.getElementById("botaoC").style.backgroundColor = cor;
+            document.getElementById("botaoD").style.backgroundColor = cor;
+            document.getElementById("botaoE").style.backgroundColor = cor;
+
+          }
+
+          const nomeInput = document.getElementById('nome');
+          const nomeSpan = document.getElementById('nome-span');
+
+          nomeInput.addEventListener('input', function() {
+            nomeSpan.textContent = nomeInput.value;
+          });
+
+          const profissaoInput = document.getElementById('profissao');
+          const profissaoSpan = document.getElementById('profissao-span');
+
+          profissaoInput.addEventListener('input', function() {
+            profissaoSpan.textContent = profissaoInput.value;
+          });
+        </script>
+
+        
+
+
+</div>

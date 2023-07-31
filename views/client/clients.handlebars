@@ -1,0 +1,72 @@
+<div class="home-header">
+
+        {{!-- <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Título do Modal</h2>
+            <p>Conteúdo do modal aqui...</p>
+        </div>
+        </div> --}}
+
+        <div class="overlay"></div>
+
+
+    <div class="title-container">
+        <h2>Clientes</h2>
+        <a href="/addClient" class="btn">Criar Cliente</a>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Usuário</th>
+            <th>Cartão</th>
+            <th>Editar</th>
+            <th>Vincular</th>
+            </tr>
+                {{#each returnClients}}
+                    <tr>
+                        <td><span class="label">{{id}}</span></td>
+                        <td><span class="label">{{name}}</span></td>
+                        <td><span class="label">{{userName}}</span></td>
+                        <td>
+                            {{#Cards}}
+                                <span class="label">{{codeCard}}</span>
+                            {{/Cards}}
+                        </td>
+                        <td><a href="/cardUser/{{id}}">Editar</a></td>
+                        <td><a href="/iCCU/{{id}}">Vincular Cartão</a></td>
+                    </tr>
+
+                {{/each}}
+            </ul>
+        </table>
+    </div>
+
+    {{#if emptyClients}}
+        <p>Ainda não há nenhum pensamento seu, comece a criar <a href="/clientadd">por aqui!</a></p>
+    {{/if}}
+
+    <script>
+        var modal = document.getElementById("modal");
+        var btn = document.getElementById("open-modal");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+        modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+    </script>
+
+</div>
